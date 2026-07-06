@@ -25,6 +25,17 @@ class BootManager {
                 this.boot();
             }
         });
+
+        this.bootScreen.addEventListener('click', () => {
+            if (!this.booted) {
+                this.booted = true;
+                this.boot();
+            }
+        });
+
+        this.pressEnter.addEventListener('click', (e) => {
+            e.stopPropagation();
+        });
     }
 
     async boot() {
