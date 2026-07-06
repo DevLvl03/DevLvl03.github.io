@@ -926,7 +926,7 @@ html, body {
 /* ============================
    RESPONSIVE
    ============================ */
-@media (max-width: 640px) {
+@media (max-width: 768px) {
     .projects-grid {
         grid-template-columns: 1fr;
     }
@@ -935,6 +935,9 @@ html, body {
         top: 10px;
         left: 10px;
         gap: 8px;
+        flex-direction: row;
+        flex-wrap: wrap;
+        width: calc(100% - 20px);
     }
 
     .desktop-icon {
@@ -956,17 +959,93 @@ html, body {
     }
 
     #start-menu {
-        width: 260px;
+        width: 280px;
         left: 2px;
+        bottom: 48px;
     }
 
     .window {
-        min-width: 220px;
-        min-height: 120px;
+        min-width: 220px !important;
+        min-height: 120px !important;
+        width: calc(100% - 16px) !important;
+        left: 8px !important;
+        right: 8px !important;
+    }
+
+    .window.maximized {
+        width: 100% !important;
+        left: 0 !important;
+        right: 0 !important;
     }
 
     #terminal {
         font-size: 14px;
         width: 92%;
+    }
+
+    #taskbar {
+        height: 48px;
+        padding: 0 4px;
+    }
+
+    #start-button {
+        padding: 0 10px;
+        font-size: 12px;
+    }
+
+    #start-button span {
+        display: none;
+    }
+
+    #clock {
+        font-size: 11px;
+        padding: 0 8px;
+    }
+
+    .taskbar-app {
+        max-width: 100px;
+        font-size: 10px;
+        padding: 0 8px;
+    }
+
+    #boot-screen #press-enter {
+        font-size: 18px;
+        padding: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .window {
+        min-width: 180px !important;
+    }
+
+    .window-content {
+        padding: 12px;
+    }
+
+    .desktop-icon {
+        width: 56px;
+    }
+
+    .desktop-icon .icon {
+        height: 34px;
+    }
+
+    .desktop-icon .icon svg {
+        width: 30px;
+        height: 30px;
+    }
+
+    #start-menu {
+        width: 240px;
+    }
+
+    #start-menu-left {
+        width: 48px;
+        padding: 12px 4px;
+    }
+
+    #start-menu-username {
+        font-size: 9px;
     }
 }
