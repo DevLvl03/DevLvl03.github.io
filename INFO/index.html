@@ -6,7 +6,14 @@
     <title>INFO</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        html, body { width: 100%; height: 100%; overflow: hidden; background: #000; }
+        html, body { 
+            width: 100%; 
+            height: 100%; 
+            overflow: hidden; 
+            background: #000;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+        
         video {
             position: fixed;
             inset: 0;
@@ -15,27 +22,296 @@
             object-fit: contain;
             background: #000;
         }
+
+        /* Full-screen overlay */
+        .overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.92);
+            backdrop-filter: blur(20px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Cookie popup card */
+        .cookie-popup {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            border-radius: 24px;
+            padding: 50px 40px;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8);
+            animation: slideUp 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Subtle animated background effect */
+        .cookie-popup::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 30% 50%, rgba(110, 168, 254, 0.05), transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(40px) scale(0.95);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Cookie icon */
+        .cookie-icon {
+            font-size: 72px;
+            margin-bottom: 16px;
+            display: block;
+            animation: bounce 2s infinite;
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .cookie-popup h1 {
+            color: #fff;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cookie-popup p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 8px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cookie-popup .sub-text {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.4);
+            margin-top: 4px;
+        }
+
+        .cookie-popup .sub-text a {
+            color: rgba(110, 168, 254, 0.6);
+            text-decoration: none;
+        }
+
+        .divider {
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(110, 168, 254, 0.3), transparent);
+            margin: 16px auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 28px;
+            position: relative;
+            z-index: 1;
+            flex-wrap: wrap;
+        }
+
+        .cookie-btn {
+            flex: 1;
+            padding: 14px 28px;
+            border: none;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            min-width: 120px;
+            letter-spacing: 0.3px;
+        }
+
+        .cookie-btn.accept {
+            background: linear-gradient(135deg, #6ea8fe, #4a8fe7);
+            color: #fff;
+            box-shadow: 0 4px 20px rgba(110, 168, 254, 0.3);
+        }
+
+        .cookie-btn.accept:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 8px 30px rgba(110, 168, 254, 0.4);
+        }
+
+        .cookie-btn.accept:active {
+            transform: translateY(0) scale(0.98);
+        }
+
+        .cookie-btn.decline {
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .cookie-btn.decline:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .cookie-btn.decline:active {
+            transform: translateY(0);
+        }
+
+        /* Rickroll reference - hidden easter egg */
+        .rickroll-text {
+            position: absolute;
+            bottom: 12px;
+            right: 20px;
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.05);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            z-index: 1;
+        }
+
+        /* Mobile responsive */
+        @media (max-width: 600px) {
+            .cookie-popup {
+                padding: 35px 24px;
+                margin: 16px;
+            }
+            
+            .cookie-icon {
+                font-size: 56px;
+            }
+            
+            .cookie-popup h1 {
+                font-size: 22px;
+            }
+            
+            .cookie-popup p {
+                font-size: 14px;
+            }
+            
+            .button-group {
+                flex-direction: column;
+            }
+            
+            .cookie-btn {
+                padding: 16px;
+                font-size: 14px;
+                min-width: unset;
+            }
+        }
+
+        /* Hide overlay when video plays */
+        .overlay.hidden {
+            display: none;
+        }
     </style>
 </head>
 <body>
     <video src="video.mp4" loop playsinline id="bgvid"></video>
+
+    <!-- Full-screen Cookie Consent Overlay -->
+    <div class="overlay" id="overlay">
+        <div class="cookie-popup">
+            <span class="cookie-icon">🍪</span>
+            <h1>We Value Your Privacy</h1>
+            <p>This website uses cookies to ensure you get the best experience.</p>
+            <p class="sub-text">By clicking <strong>Accept</strong>, you agree to our use of cookies.<br>
+            <a href="#" onclick="return false;">Privacy Policy</a></p>
+            <div class="divider"></div>
+            <div class="button-group">
+                <button class="cookie-btn decline" id="declineBtn">Decline</button>
+                <button class="cookie-btn accept" id="acceptBtn">Accept All</button>
+            </div>
+            <div class="rickroll-text">Never Gonna Give You Up</div>
+        </div>
+    </div>
+
     <script>
         const v = document.getElementById('bgvid');
-        
-        // Start muted
-        v.muted = true;
-        v.play().then(() => {
-            // Try to unmute after a tiny delay (may or may not work)
-            setTimeout(() => {
-                v.muted = false;
-            }, 100);
-        }).catch(() => {
-            // If it fails, wait for click
-            document.addEventListener('click', () => {
-                v.muted = false;
+        const overlay = document.getElementById('overlay');
+        const acceptBtn = document.getElementById('acceptBtn');
+        const declineBtn = document.getElementById('declineBtn');
+
+        // Function to start video unmuted and remove overlay
+        function startVideo() {
+            // Unmute and play
+            v.muted = false;
+            v.play().then(() => {
+                console.log('🎵 Never gonna give you up! 🎵');
+            }).catch(err => {
+                console.warn('Playback failed:', err);
+                // Fallback: try muted
+                v.muted = true;
                 v.play();
-            }, { once: true });
+            });
+            
+            // Hide the overlay with animation
+            overlay.style.transition = 'opacity 0.5s ease';
+            overlay.style.opacity = '0';
+            setTimeout(() => {
+                overlay.classList.add('hidden');
+            }, 500);
+        }
+
+        // Accept button
+        acceptBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            startVideo();
         });
+
+        // Decline button
+        declineBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            startVideo();
+        });
+
+        // Try to autoplay muted initially (video preloads)
+        v.muted = true;
+        v.play().catch(() => {
+            console.log('⏳ Waiting for cookie consent...');
+        });
+
+        // Prevent clicking on overlay from closing it (only buttons work)
+        overlay.addEventListener('click', function(e) {
+            if (e.target === overlay) {
+                // Do nothing - force user to click a button
+            }
+        });
+
+        console.log('🍪 Cookie consent required to unmute the video...');
+        console.log('🎵 You know the rules, and so do I!');
     </script>
 </body>
 </html>
