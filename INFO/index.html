@@ -18,6 +18,12 @@
     </style>
 </head>
 <body>
-    <video src="video.mp4" autoplay controls playsinline></video>
+    <video src="video.mp4" autoplay muted loop playsinline id="bgvid"></video>
+    <script>
+        const v = document.getElementById('bgvid');
+        v.play().catch(() => {
+            document.addEventListener('click', () => v.play(), { once: true });
+        });
+    </script>
 </body>
 </html>
