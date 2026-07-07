@@ -18,11 +18,17 @@
     </style>
 </head>
 <body>
-    <video src="video.mp4" autoplay muted loop playsinline id="bgvid"></video>
+    <video src="video.mp4" autoplay loop playsinline id="bgvid"></video>
     <script>
         const v = document.getElementById('bgvid');
+        
+        // Try to play with sound
         v.play().catch(() => {
-            document.addEventListener('click', () => v.play(), { once: true });
+            // If autoplay with sound fails, wait for user interaction
+            document.addEventListener('click', () => {
+                v.muted = false;
+                v.play();
+            }, { once: true });
         });
     </script>
 </body>
