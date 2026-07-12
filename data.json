@@ -1,8 +1,34 @@
 {
-    "minecraft": [],
-    "images": [],
-    "bio": [],
-    "videos": [],
-    "quotes": [],
-    "text": []
+    "bio": [
+        {
+            "title": "Hello World!",
+            "date": "2026-07-12",
+            "body": "Hello! o/ I'm LvlDev.",
+            "image": "",
+            "video": "",
+            "tags": ""
+        }
+    ],
+    "images": [
+        {
+            "title": "Coffee...",
+            "slug": "Coffe.e...",
+            "date": "2026-07-12",
+            "body": "E=MC2",
+            "image": "https://i.imgur.com/DnLq8vR.png",
+            "video": "",
+            "tags": ""
+        }
+    ],
+    "quotes": [
+        {
+            "title": "Quote",
+            "slug": "quote",
+            "date": "2026-07-12",
+            "body": "Creativity is the ability to introduce order into the randomness of nature.",
+            "image": "",
+            "video": "",
+            "tags": ""
+        }
+    ]
 }
