@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfo</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="theme-normal">
+    <canvas id="bg-canvas"></canvas>
+
+    <div id="app">
+        <header id="topbar">
+            <div class="topbar-inner">
+                <h1 class="logo">P<span class="logo-dot">.</span></h1>
+                <nav id="nav-cats"></nav>
+                <div class="topbar-right">
+                    <button id="theme-toggle" title="Toggle terminal"></button>
+                </div>
+                <button id="mobile-menu-btn"><span></span><span></span><span></span></button>
+            </div>
+        </header>
+
+        <div id="mobile-menu" class="hidden">
+            <nav id="mobile-nav-cats"></nav>
+        </div>
+
+        <!-- NORMAL VIEW -->
+        <main id="normal-view">
+            <section id="hero">
+                <div class="hero-content">
+                    <div class="hero-badge">Portfolio</div>
+                    <h2 class="hero-title">Welcome to my <span class="hero-accent">Portfo</span></h2>
+                    <p class="hero-sub">Browse through my collections and creations.</p>
+                </div>
+            </section>
+
+            <section id="categories-section">
+                <div id="categories-grid"></div>
+            </section>
+
+            <section id="entries-section" class="hidden">
+                <div class="section-header">
+                    <button id="back-btn" class="back-link">Back</button>
+                    <span id="section-title" class="section-label"></span>
+                    <div class="section-line"></div>
+                </div>
+                <div id="entries-grid"></div>
+            </section>
+        </main>
+
+        <!-- TERMINAL VIEW -->
+        <div id="terminal-view" class="hidden">
+            <div id="terminal">
+                <div id="term-header">
+                    <div class="dots"><span class="red"></span><span class="yellow"></span><span class="green"></span></div>
+                    <span class="title">portfo@terminal ~ %</span>
+                </div>
+                <div id="output"></div>
+                <div id="input-line">
+                    <span class="prompt">portfo@terminal ~ %</span>
+                    <input type="text" id="cmd" autocomplete="off" spellcheck="false" placeholder="type help">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="bg.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
