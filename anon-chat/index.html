@@ -7,92 +7,60 @@
 <title>Anon Chat</title>
 <style>
 *{box-sizing:border-box}
-:root{color-scheme:dark}
-body{margin:0;background:#0b0e13;color:#eef1f6;font:15px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;height:100vh}
-button,input,select{font:inherit}
-button,input,select{border:1px solid #303744;border-radius:10px;background:#151922;color:#eef1f6;padding:10px 12px}
-button{cursor:pointer;background:#202633}
-button:hover{background:#2a3140}
-button:disabled{opacity:.55;cursor:not-allowed}
-input:focus,select:focus,button:focus-visible{outline:2px solid #6470ff55;border-color:#6874ff}
-#setup{position:fixed;inset:0;display:grid;place-items:center;padding:20px;background:radial-gradient(circle at top,#151b29 0,#0b0e13 55%)}
-.card{width:min(560px,100%);padding:26px;border:1px solid #29303c;border-radius:18px;background:#11151d;box-shadow:0 20px 70px #0008}
-.brand{display:flex;align-items:center;gap:12px;margin-bottom:8px}
-.logo{width:42px;height:42px;display:grid;place-items:center;border-radius:12px;background:#252c3a;font-weight:800}
-h1,h2,p{margin-top:0}
-h1{font-size:21px;margin-bottom:0}
-h2{font-size:17px;margin-bottom:7px}
-p{color:#aeb6c5;line-height:1.55}
-.row{display:flex;gap:8px;margin-top:12px}
-.row>*{min-width:0}
-.row input,.row select{flex:1}
-.small{font-size:12px;color:#7f8999}
-.error{min-height:18px;color:#ff8e8e}
-.hidden{display:none!important}
-main{max-width:900px;height:100vh;margin:auto;display:flex;flex-direction:column;padding:14px}
-header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:4px 2px 12px}
-.headerLeft{display:flex;align-items:center;gap:10px;min-width:0}
-.headerTitle{font-weight:750;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+body{margin:0;background:#0f1115;color:#eee;font:15px system-ui,-apple-system,Segoe UI,sans-serif;height:100vh}
+main{max-width:760px;height:100vh;margin:auto;display:flex;flex-direction:column;padding:18px}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+h1{font-size:20px;margin:0}
 #status{font-size:12px;color:#8f98a8}
-.headerActions{display:flex;align-items:center;gap:7px}
-#messages{flex:1;overflow:auto;border:1px solid #29303a;border-radius:15px;padding:14px;background:#080a0e;scroll-behavior:smooth}
-.empty{text-align:center;color:#737d8d;padding:42px 20px}
-.msg{margin:0 0 13px;max-width:100%;word-break:break-word}
-.meta{display:flex;align-items:center;gap:7px;margin-bottom:2px}
-.name{font-weight:750}
-.time{font-size:11px;color:#6f7888}
-.text{white-space:pre-wrap;line-height:1.45}
-#form{display:flex;gap:8px;margin-top:10px}
-#text{flex:1;min-width:0}
-#send{min-width:72px}
-.settings{display:flex;align-items:center;gap:7px}
-.settings label{font-size:12px;color:#858e9d}
-#retention{padding:7px 9px;font-size:12px}
-.roomBadge{font-size:11px;color:#8b95a5;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:260px}
-@media(max-width:600px){main{padding:8px}.roomBadge{max-width:120px}.headerActions{gap:4px}.settings label{display:none}#form{gap:6px}.card{padding:20px}}
+#messages{flex:1;overflow:auto;border:1px solid #292e38;border-radius:12px;padding:12px;background:#0a0c10}
+.msg{margin:0 0 10px;word-wrap:break-word}
+.name{font-weight:700}
+.time{font-size:11px;color:#707887;margin-left:6px}
+#form{display:flex;gap:8px;margin-top:12px}
+input,button{border:1px solid #303642;border-radius:9px;background:#171a21;color:#eee;padding:11px 12px;font:inherit}
+input:focus{outline:2px solid #5664ff33;border-color:#6570ff}
+#name{width:150px}
+#text{flex:1}
+button{cursor:pointer;background:#242938}
+button:hover{background:#2d3344}
+#setup{position:fixed;inset:0;background:#0f1115;display:grid;place-items:center;padding:20px}
+.card{width:min(520px,100%);border:1px solid #292e38;background:#151820;border-radius:14px;padding:20px}
+.card h2{margin-top:0}
+.card p{color:#aab1bf;line-height:1.5}
+.row{display:flex;gap:8px;margin-top:12px}
+.row input{flex:1}
+.small{font-size:12px;color:#858d9b}
+.hidden{display:none!important}
 </style>
 </head>
 <body>
 <div id="setup">
   <div class="card">
-    <div class="brand"><div class="logo">AC</div><div><h1>Anon Chat</h1><div class="small">Encrypted temporary rooms</div></div></div>
-    <p>Messages are encrypted in your browser with AES 256 GCM before they are sent to Firebase. Your chat name is generated randomly when you enter.</p>
+    <h2>Anon Chat</h2>
+    <p>Messages are encrypted in your browser before they are sent to Firebase. The encryption key stays in the URL fragment and is never sent to Firebase.</p>
     <div class="row">
-      <input id="room" autocomplete="off" placeholder="Paste a room link or room code">
-      <button id="newRoom" type="button">New room</button>
+      <input id="room" placeholder="Room code or leave blank">
+      <button id="newRoom">New room</button>
     </div>
     <div class="row">
-      <button id="join" type="button" style="width:100%">Enter chat</button>
+      <input id="setupName" maxlength="32" placeholder="Name">
+      <button id="join">Join</button>
     </div>
-    <p class="small">New rooms expire after 7 days without activity. Anyone with the complete room link can change that setting.</p>
-    <p class="small error" id="setupError"></p>
+    <p class="small">Share the full room URL with people you trust. Do not remove the part after the #.</p>
+    <p class="small" id="setupError"></p>
   </div>
 </div>
 
 <main id="app" class="hidden">
 <header>
-  <div class="headerLeft">
-    <div class="headerTitle">Anon Chat</div>
-    <div class="roomBadge" id="roomBadge"></div>
-    <span id="status">Connecting...</span>
-  </div>
-  <div class="headerActions">
-    <div class="settings">
-      <label for="retention">Delete after</label>
-      <select id="retention" title="Room retention">
-        <option value="1">1 day</option>
-        <option value="7" selected>7 days</option>
-        <option value="30">30 days</option>
-        <option value="0">Never</option>
-      </select>
-    </div>
-    <button id="copyLink" type="button">Copy link</button>
-  </div>
+  <h1>Anon Chat</h1>
+  <span id="status">Connecting...</span>
 </header>
-<section id="messages" aria-live="polite"><div class="empty">No messages yet. Say something.</div></section>
+<section id="messages" aria-live="polite"></section>
 <form id="form">
+  <input id="name" maxlength="32" autocomplete="off" aria-label="Name">
   <input id="text" maxlength="2000" autocomplete="off" placeholder="Message..." aria-label="Message">
-  <button id="send" type="submit">Send</button>
+  <button>Send</button>
 </form>
 </main>
 
@@ -101,9 +69,13 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/fireba
 import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-auth.js";
 import {
   getFirestore, collection, addDoc, query, orderBy, limitToLast, onSnapshot,
-  serverTimestamp, doc, getDoc, setDoc, updateDoc, writeBatch
+  serverTimestamp
 } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
 
+/*
+  Replace this with your Firebase Web App config.
+  Firebase Console > Project settings > Your apps > Web app
+*/
 const firebaseConfig = {
   apiKey: "AIzaSyCMR-AvspjTIcLeWiW9ZkkMQWlb5T1val4",
   authDomain: "anon-chat-f673c.firebaseapp.com",
@@ -116,176 +88,148 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
+
 const $ = id => document.getElementById(id);
 const enc = new TextEncoder();
 const dec = new TextDecoder();
-const RETENTION_OPTIONS = [0,1,7,30];
+
 let roomId = null;
 let roomKey = null;
 let unsubscribe = null;
-let roomUnsubscribe = null;
-let myName = null;
 
-function bytesToB64(bytes){let s="";for(const b of bytes)s+=String.fromCharCode(b);return btoa(s).replaceAll("+","-").replaceAll("/","_").replaceAll("=","")}
-function b64ToBytes(s){s=s.replaceAll("-","+").replaceAll("_","/");while(s.length%4)s+="=";const raw=atob(s);return Uint8Array.from(raw,c=>c.charCodeAt(0))}
-async function makeKey(){return crypto.subtle.generateKey({name:"AES-GCM",length:256},true,["encrypt","decrypt"])}
-async function exportKey(key){return bytesToB64(new Uint8Array(await crypto.subtle.exportKey("raw",key)))}
-async function importKey(s){return crypto.subtle.importKey("raw",b64ToBytes(s),{name:"AES-GCM"},false,["encrypt","decrypt"])}
-async function encrypt(value){const iv=crypto.getRandomValues(new Uint8Array(12));const data=enc.encode(JSON.stringify(value));const cipher=new Uint8Array(await crypto.subtle.encrypt({name:"AES-GCM",iv},roomKey,data));return {iv:bytesToB64(iv),data:bytesToB64(cipher)}}
-async function decrypt(packet){const plain=await crypto.subtle.decrypt({name:"AES-GCM",iv:b64ToBytes(packet.iv)},roomKey,b64ToBytes(packet.data));return JSON.parse(dec.decode(plain))}
-function randomRoomId(){return bytesToB64(crypto.getRandomValues(new Uint8Array(12)))}
-function randomName(){
-  const alphabet="ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789!@#$%^&*+=?";
-  const length=crypto.getRandomValues(new Uint8Array(1))[0]%9+8;
-  const bytes=crypto.getRandomValues(new Uint8Array(length));
-  let value="";
-  for(const b of bytes)value+=alphabet[b%alphabet.length];
-  return value;
+function bytesToB64(bytes) {
+  let s = "";
+  for (const b of bytes) s += String.fromCharCode(b);
+  return btoa(s).replaceAll("+","-").replaceAll("/","_").replaceAll("=","");
 }
-function showError(e){console.error(e);$("setupError").textContent=e?.message||"Could not connect. Check your Firebase configuration and rules."}
-function retentionLabel(days){return days===0?"Never":days+" day"+(days===1?"":"s")}
-function roomUrl(){return location.origin+location.pathname+location.hash}
-function parseRoomInput(){
-  const raw=$("room").value.trim();
-  if(!raw)return null;
-  if(raw.includes("#")){
-    const hash=raw.split("#")[1];
-    const [id,key]=hash.split(".");
-    if(!id||!key)throw new Error("That room link is invalid.");
-    return {id,key};
-  }
-  const [id,key]=raw.split(".");
-  if(!id||!key)throw new Error("Paste the complete room link, including the part after #.");
-  return {id,key};
+function b64ToBytes(s) {
+  s = s.replaceAll("-","+").replaceAll("_","/");
+  while (s.length % 4) s += "=";
+  const raw = atob(s);
+  return Uint8Array.from(raw, c => c.charCodeAt(0));
+}
+async function makeKey() {
+  return crypto.subtle.generateKey({name:"AES-GCM",length:256}, true, ["encrypt","decrypt"]);
+}
+async function exportKey(key) {
+  return bytesToB64(new Uint8Array(await crypto.subtle.exportKey("raw", key)));
+}
+async function importKey(s) {
+  return crypto.subtle.importKey("raw", b64ToBytes(s), {name:"AES-GCM"}, false, ["encrypt","decrypt"]);
+}
+async function encrypt(value) {
+  const iv = crypto.getRandomValues(new Uint8Array(12));
+  const data = enc.encode(JSON.stringify(value));
+  const cipher = new Uint8Array(await crypto.subtle.encrypt({name:"AES-GCM",iv}, roomKey, data));
+  return {iv:bytesToB64(iv), data:bytesToB64(cipher)};
+}
+async function decrypt(packet) {
+  const plain = await crypto.subtle.decrypt(
+    {name:"AES-GCM",iv:b64ToBytes(packet.iv)},
+    roomKey,
+    b64ToBytes(packet.data)
+  );
+  return JSON.parse(dec.decode(plain));
+}
+function randomRoomId() {
+  const bytes = crypto.getRandomValues(new Uint8Array(12));
+  return bytesToB64(bytes);
+}
+function showError(e) {
+  console.error(e);
+  $("setupError").textContent = "Could not connect. Check your Firebase config and Firestore rules.";
 }
 
-$("newRoom").onclick=()=>{
-  $("room").value="";
-  start(true).catch(showError);
+$("newRoom").onclick = () => {
+  $("room").value = randomRoomId();
 };
-$("join").onclick=()=>start(false).catch(showError);
-$("room").addEventListener("keydown",e=>{if(e.key==="Enter")start(false).catch(showError)});
 
-async function start(forceNew){
-  $("setupError").textContent="";
-  $("join").disabled=true;
-  $("newRoom").disabled=true;
-  try{
-    const supplied=parseRoomInput();
-    if(forceNew||!supplied){
-      roomId=randomRoomId();
-      roomKey=await makeKey();
-      const keyText=await exportKey(roomKey);
-      history.replaceState(null,"",location.pathname+"#"+roomId+"."+keyText);
-    }else{
-      roomId=supplied.id;
-      roomKey=await importKey(supplied.key);
-      history.replaceState(null,"",location.pathname+"#"+roomId+"."+supplied.key);
+async function start() {
+  try {
+    const hash = location.hash.slice(1);
+    if (hash) {
+      const [id, key] = hash.split(".");
+      if (!id || !key) throw new Error("Invalid room link");
+      roomId = id;
+      roomKey = await importKey(key);
+      $("room").value = roomId;
+    } else {
+      roomId = $("room").value.trim() || randomRoomId();
+      roomKey = await makeKey();
+      const keyText = await exportKey(roomKey);
+      history.replaceState(null, "", location.pathname + "#" + roomId + "." + keyText);
+      $("room").value = roomId;
     }
-    $("room").value=roomId;
-    myName=randomName();
+
+    const name = $("setupName").value.trim();
+    if (!name) throw new Error("Enter a name");
+
     await signInAnonymously(auth);
-    const roomRef=doc(db,"rooms",roomId);
-    const roomSnap=await getDoc(roomRef);
-    if(!roomSnap.exists()){
-      if(!forceNew && supplied)throw new Error("That room does not exist or has expired.");
-      await setDoc(roomRef,{retentionDays:7,lastActivity:serverTimestamp(),createdAt:serverTimestamp()});
-    }else{
-      const data=roomSnap.data();
-      const days=RETENTION_OPTIONS.includes(data.retentionDays)?data.retentionDays:7;
-      if(days!==0 && data.lastActivity){
-        const expires=data.lastActivity.toMillis()+days*86400000;
-        if(expires<=Date.now())throw new Error("This room has expired.");
-      }
-      $("retention").value=String(days);
-    }
-    $("roomBadge").textContent="Room "+roomId;
+
+    $("name").value = name;
     $("setup").classList.add("hidden");
     $("app").classList.remove("hidden");
-    $("status").textContent="Connected as "+myName;
-    listenRoom(roomRef);
-    listenMessages();
-  }finally{
-    $("join").disabled=false;
-    $("newRoom").disabled=false;
+    $("status").textContent = "Connected";
+
+    const ref = collection(db, "rooms", roomId, "messages");
+    const q = query(ref, orderBy("createdAt", "asc"), limitToLast(100));
+
+    unsubscribe = onSnapshot(q, async snap => {
+      const out = [];
+      for (const doc of snap.docs) {
+        try {
+          const value = await decrypt(doc.data().ciphertext);
+          out.push({...value, id: doc.id});
+        } catch {
+          /* Ignore messages that cannot be decrypted with this room key. */
+        }
+      }
+      out.sort((a,b) => a.time - b.time);
+      $("messages").replaceChildren(...out.map(renderMessage));
+      $("messages").scrollTop = $("messages").scrollHeight;
+    }, showError);
+  } catch (e) {
+    showError(e);
   }
 }
 
-function listenRoom(roomRef){
-  roomUnsubscribe?.();
-  roomUnsubscribe=onSnapshot(roomRef,snap=>{
-    if(!snap.exists()){
-      $("status").textContent="Room deleted";
-      $("text").disabled=true;
-      $("send").disabled=true;
-      return;
-    }
-    const data=snap.data();
-    const days=RETENTION_OPTIONS.includes(data.retentionDays)?data.retentionDays:7;
-    $("retention").value=String(days);
-    $("status").textContent="Connected as "+myName+" · deletes after "+retentionLabel(days);
-    if(days!==0&&data.lastActivity&&data.lastActivity.toMillis()+days*86400000<=Date.now()){
-      $("status").textContent="Room expired";
-    }
-  },e=>{console.error(e);$("status").textContent="Room settings unavailable"});
+function renderMessage(m) {
+  const el = document.createElement("div");
+  el.className = "msg";
+
+  const name = document.createElement("span");
+  name.className = "name";
+  name.textContent = m.name;
+
+  const time = document.createElement("span");
+  time.className = "time";
+  time.textContent = new Date(m.time).toLocaleTimeString();
+
+  const text = document.createElement("div");
+  text.textContent = m.text;
+
+  el.append(name, time, text);
+  return el;
 }
 
-function listenMessages(){
-  const ref=collection(db,"rooms",roomId,"messages");
-  const q=query(ref,orderBy("createdAt","asc"),limitToLast(200));
-  unsubscribe?.();
-  unsubscribe=onSnapshot(q,async snap=>{
-    const out=[];
-    for(const message of snap.docs){
-      try{const value=await decrypt(message.data().ciphertext);out.push({...value,id:message.id})}catch{}
-    }
-    out.sort((a,b)=>a.time-b.time);
-    const box=$("messages");
-    if(!out.length)box.innerHTML='<div class="empty">No messages yet. Say something.</div>';
-    else box.replaceChildren(...out.map(renderMessage));
-    box.scrollTop=box.scrollHeight;
-  },e=>{console.error(e);$("status").textContent="Connection error"});
-}
-
-function renderMessage(m){
-  const el=document.createElement("div");el.className="msg";
-  const meta=document.createElement("div");meta.className="meta";
-  const name=document.createElement("span");name.className="name";name.textContent=m.name;
-  const time=document.createElement("span");time.className="time";time.textContent=new Date(m.time).toLocaleTimeString();
-  const text=document.createElement("div");text.className="text";text.textContent=m.text;
-  meta.append(name,time);el.append(meta,text);return el;
-}
-
-$("retention").addEventListener("change",async()=>{
-  const days=Number($("retention").value);
-  if(!RETENTION_OPTIONS.includes(days))return;
-  try{
-    await updateDoc(doc(db,"rooms",roomId),{retentionDays:days});
-  }catch(e){console.error(e);$("setupError").textContent="Could not change the room expiry setting.";}
+$("join").onclick = start;
+$("setupName").addEventListener("keydown", e => {
+  if (e.key === "Enter") start();
 });
-
-$("copyLink").onclick=async()=>{
-  try{await navigator.clipboard.writeText(roomUrl());$("copyLink").textContent="Copied";setTimeout(()=>$("copyLink").textContent="Copy link",1200)}catch{$("copyLink").textContent="Copy failed"}
-};
-
-$("form").addEventListener("submit",async e=>{
+$("form").addEventListener("submit", async e => {
   e.preventDefault();
-  const text=$("text").value.trim();
-  if(!text||!auth.currentUser)return;
-  $("send").disabled=true;
-  try{
-    const ciphertext=await encrypt({name:myName,text,time:Date.now()});
-    const batch=writeBatch(db);
-    const messageRef=doc(collection(db,"rooms",roomId,"messages"));
-    batch.set(messageRef,{ciphertext,createdAt:serverTimestamp()});
-    batch.update(doc(db,"rooms",roomId),{lastActivity:serverTimestamp()});
-    await batch.commit();
-    $("text").value="";
-  }catch(e){console.error(e);$("status").textContent="Message failed to send"}
-  finally{$("send").disabled=false;$("text").focus()}
-});
+  const text = $("text").value.trim();
+  const name = $("name").value.trim();
+  if (!text || !name || !auth.currentUser) return;
 
-window.addEventListener("beforeunload",()=>{unsubscribe?.();roomUnsubscribe?.()});
+  $("text").value = "";
+  const ciphertext = await encrypt({name, text, time: Date.now()});
+
+  await addDoc(collection(db, "rooms", roomId, "messages"), {
+    ciphertext,
+    createdAt: serverTimestamp()
+  });
+});
 </script>
 </body>
 </html>
